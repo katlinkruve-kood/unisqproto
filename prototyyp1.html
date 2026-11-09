@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="et"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HK Unicorn Squad – õpikeskkond</title>
+<style>
+:root{--p:#5B4A78;--pd:#3F3358;--pl:#E9E4F1;--t:#8DB8BA;--k:#C79BC0;--ink:#2B2536;--bg:#F6F3F9;--card:#fff;--ok:#2E7D6B;--warn:#B3541E;--line:#DDD6E8;color-scheme:light dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root{--p:#7A64A3;--pd:#CDBFE8;--pl:#3a3150;--ink:#EEEAF5;--bg:#1d1829;--card:#2a2339;--line:#463d5c;--ok:#6CC4AE;--warn:#F0A070}}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,"Segoe UI",sans-serif}
+h1,h2,h3{font-family:"Trebuchet MS",system-ui,sans-serif;margin:.2em 0 .4em;line-height:1.2;color:var(--pd)}
+header{background:var(--p);color:#fff;padding:10px 14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-family:"Trebuchet MS",sans-serif}.logo svg{width:34px;height:34px}
+.roles{display:flex;gap:6px;flex-wrap:wrap}
+.roles button{border:1px solid #ffffff88;background:transparent;color:#fff;border-radius:99px;padding:6px 12px;cursor:pointer;font:inherit;font-size:14px}
+.roles button[aria-pressed=true]{background:#fff;color:var(--pd);font-weight:700}
+main{max-width:1000px;margin:0 auto;padding:14px}
+.circ{height:10px;background:repeating-linear-gradient(90deg,var(--t) 0 18px,transparent 18px 26px);opacity:.6}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:12px;padding-bottom:4px}
+.tabs button,.btn{border:0;background:var(--p);color:#fff;border-radius:10px;padding:9px 14px;cursor:pointer;font:inherit;white-space:nowrap}
+.tabs button{background:var(--pl);color:var(--pd)}.tabs button[aria-pressed=true]{background:var(--p);color:#fff}
+.btn.alt{background:var(--pl);color:var(--pd)}.btn.sm{padding:5px 10px;font-size:14px}.btn:disabled{opacity:.45;cursor:not-allowed}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--k);outline-offset:2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+.chip{display:inline-block;border-radius:99px;padding:2px 10px;font-size:13px;background:var(--pl);color:var(--pd);margin:2px}
+.chip.ok{background:#d7efe8;color:#1d5b4c}.chip.bad{background:#fbe0d0;color:#8a3a10}
+@media(prefers-color-scheme:dark){.chip.ok{background:#1f4a3f;color:#bfeee0}.chip.bad{background:#59301a;color:#ffd7bd}}
+input,select,textarea{font:inherit;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);width:100%;margin:3px 0}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row>*{flex:0 1 auto}.row input{flex:1 1 160px;width:auto}
+.bar{height:10px;background:var(--pl);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--t),var(--k))}
+.step{display:flex;gap:12px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:12px;margin:8px 0;cursor:pointer;background:var(--card)}
+.step.d{background:#d7efe8;color:#1d5b4c}.step .im{font-size:34px;width:60px;height:60px;display:grid;place-items:center;background:var(--pl);border-radius:12px;flex:none}
+.ph{aspect-ratio:4/3;border-radius:10px;display:grid;place-items:center;font-size:48px;background:linear-gradient(135deg,var(--pl),var(--t));overflow:hidden}.ph img{width:100%;height:100%;object-fit:cover}
+.bd{text-align:center;padding:12px;border-radius:14px;background:var(--card);border:1px solid var(--line)}.bd b{font-size:40px;display:block}.bd.lock{opacity:.4;filter:grayscale(1)}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line);font-size:15px;vertical-align:middle}
+.wrap{overflow-x:auto}.code{font:700 18px monospace;background:var(--pl);padding:2px 8px;border-radius:6px}
+.hero{display:grid;gap:16px;grid-template-columns:1.1fr .9fr;align-items:center}.hero img{width:100%;max-height:420px;object-fit:contain;border-radius:14px;background:#fff}
+@media(max-width:700px){.hero{grid-template-columns:1fr}}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--pd);color:var(--bg);padding:10px 18px;border-radius:99px;opacity:0;transition:.25s;pointer-events:none;z-index:9}
+#toast.on{opacity:1}
+#cert{background:#fff;color:#2B2536;border:6px double #5B4A78;padding:28px;text-align:center;margin:12px 0}
+#cert h1{color:#3F3358;font-size:34px;letter-spacing:3px}
+@page{size:A4 portrait;margin:12mm}
+@media print{body *{visibility:hidden}#cert,#cert *{visibility:visible}#cert{position:absolute;left:0;top:0;width:100%;margin:0}}
+</style></head><body>
+<!-- LOGO: asenda siin kohatäide päris Unicorn Squadi SVG-ga -->
+<svg style="display:none"><symbol id="lm" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#fff"/><path d="M16 3l3.4 10h-6.8z" fill="#5B4A78"/><path d="M7 25c3-7 15-7 18 0" stroke="#8DB8BA" stroke-width="2.5" fill="none"/><circle cx="16" cy="18" r="3" fill="#C79BC0"/></symbol></svg>
+<header><div class="logo"><svg><use href="#lm"/></svg>HK Unicorn Squad</div><nav class="roles" id="roles" aria-label="Demo: vaheta rolli"></nav></header>
+<div class="circ"></div>
+<main id="app"></main><div id="toast" role="status"></div>
+<script>
+const HERO='__HERO__'; // asenda base64-pildiga (data:image/jpeg;base64,...) või pildi URL-iga
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const $=s=>document.querySelector(s),v=id=>($('#'+id)||{value:''}).value.trim();
+const E=['🔧','🧪','💡','🚀','🎉'],mk=a=>a.map((x,i)=>[x,E[i%5]]);
+const D={
+ins:[{n:'Marika',e:'marika@unicornsquad.ee',on:true},{n:'Triin',e:'triin@unicornsquad.ee',on:true}],
+B:[{id:'film',n:'Filmitegija',i:'🎬'},{id:'robot',n:'Robotiehitaja',i:'🤖'},{id:'debug',n:'Vigade jahtija',i:'🔍'},{id:'team',n:'Meeskonnamängija',i:'🤝'},{id:'sci',n:'Teadlane',i:'🔬'}],
+L:[
+{id:1,t:'Lühivideo',tool:'Videoredaktor (sinine ikoon)',goal:'Filmid ja lõikad oma esimese lühivideo.',kit:'Telefon või tahvel, statiiv',out:['Oskan filmida ja lõigata lühivideo','Oskan lisada videole heli'],st:mk(['Ava rakendus ja vali “Uus projekt”','Filmi kolm lühikest klippi','Lõika klipid õigesse järjekorda','Lisa heli ja salvesta']),ready:true},
+{id:2,t:'Robot liikuma',tool:'Robotiäpp',goal:'Programmeerid roboti sõitma.',kit:'Kast A: robot, kaabel, kaardid',out:['Oskan programmeerida roboti liikuma','Oskan leida ja parandada käskude vigu'],st:mk(['Ühenda robot äpiga','Pane käsud järjekorda','Käivita ja vaata, kas robot liigub']),ready:true},
+{id:3,t:'Looduse mõõtmine',tool:'Andurite äpp',goal:'Mõõdad andurite abil ümbritsevat.',kit:'Kast B: andurid',out:['Oskan kasutada andurit mõõtmiseks','Oskan tulemusi võrrelda'],st:mk(['Vali, mida mõõdad','Ühenda andur','Pane tulemused kirja']),ready:false},
+{id:4,t:'Mänguprogramm',tool:'Plokkprogrammeerimine',goal:'Teed lihtsa arvutimängu.',kit:'Arvuti või tahvel',out:['Oskan luua lihtsa mängu','Oskan kasutada tsüklit ja tingimust'],st:mk(['Joonista tegelane','Pane tegelane liikuma','Lisa punktiskoor']),ready:false},
+{id:5,t:'Lõpuprojekt',tool:'Vabalt valitud',goal:'Kombineerid õpitu oma projektiks.',kit:'Kõik kastid',out:['Oskan planeerida ja esitleda oma projekti'],st:mk(['Mõtle idee välja','Ehita või programmeeri','Esita rühmale']),ready:false}],
+S:[
+{id:'s1',n:'Iti',code:'UNI-ITI1',c:true,done:[1,2],badges:['film'],fav:[1],tk:{}},
+{id:'s2',n:'Mia',code:'UNI-MIA2',c:true,done:[1,2,3,4],badges:['film','robot','debug'],fav:[],tk:{}},
+{id:'s3',n:'Laura',code:'UNI-LAU3',c:false,done:[1,2,3],badges:['film','robot'],fav:[],tk:{}},
+{id:'s4',n:'Kaisa',code:'UNI-KAI4',c:true,done:[1,2,3,4,5],badges:['film','robot','sci','team'],fav:[],tk:{}}],
+W:[
+{id:1,sid:'s1',lid:1,t:'Minu esimene video',i:'🎬',r:['Tegin video robotist.','Lõikamine õnnestus.','Heli lisamisel vajasin abi.'],fb:'Hea lõige! Järgmisel korral proovi lisada ka heli.',cm:[{by:'Mia',t:'Mulle meeldis, et video oli lühike ja selge.'}],h:2},
+{id:2,sid:'s2',lid:2,t:'Sikk-sakk robot',i:'🤖',r:['Programmeerisin roboti sõitma sikk-sakki.','Käsud sai õigesse järjekorda.','Ei vajanud abi.'],fb:'',cm:[],h:3},
+{id:3,sid:'s4',lid:3,t:'Päikese mõõtmine',i:'🔬',r:['Mõõtsin valgust õues.','Tulemuste võrdlus.','Abi andurite ühendamisel.'],fb:'Väga põhjalik töö!',cm:[],h:5},
+{id:4,sid:'s3',lid:2,t:'Minu robot',i:'🤖',r:['','',''],fb:'',cm:[],h:0}],
+BX:[{n:'Kast A – robotid',st:'kohal',w:'Omniva pakiautomaat, Tapa',d:'saata edasi 20.11'},{n:'Kast B – andurid',st:'hilinenud',w:'Omniva, Tallinn',d:'oodatud 12.11, pole saabunud'},{n:'Kast C – mänguprogramm',st:'ootel',w:'—',d:'saabub 27.11'}],
+CP:[{t:'Laagri nimekiri ja nõusolekud kontrollitud',d:true},{t:'Transport kinnitatud',d:false},{t:'Vahendite kast pakitud',d:false}],
+P:[{id:1,lid:2,by:'Triin',t:'Robot ei liikunud, kuigi käsud olid õiged. Lahendus: kontrolli, kas aku on täis.',re:[{by:'Marika',t:'Aitäh, sama juhtus meil! Aku oli tõesti tühi.'}]}],
+N:['Homne tund toimub, aga juhendaja vahetub: Marika asemel tuleb kooli informaatikaõpetaja.']};
+let S={role:'pub',tab:'ov',lid:null,sid:null,sel:null,cert:null,draft:'',nf:'0'};
+const L=id=>D.L.find(l=>l.id==id),St=id=>D.S.find(s=>s.id==id),bd=id=>D.B.find(b=>b.id==id);
+const pct=s=>Math.round(s.done.length/D.L.length*100),elig=s=>pct(s)>=80;
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2200)};
+const go=r=>{Object.assign(S,{role:r,tab:r=='stu'?'k':'ov',lid:null,sel:null,cert:null});render()};
+const tab=t=>{Object.assign(S,{tab:t,lid:null,sel:null,cert:null});render()};
+const tabs=a=>`<div class="tabs">${a.map(([k,n])=>`<button aria-pressed="${S.tab==k}" onclick="tab('${k}')">${n}</button>`).join('')}</div>`;
+const cons=s=>s.c?'<span class="chip ok">✓ foto luba</span>':'<span class="chip bad">✗ luba puudub</span>';
+const ph=w=>`<div class="ph">${w.img?`<img alt="${esc(w.t)}" src="${w.img}">`:w.i}</div>`;
+const bar=p=>`<div class="bar" role="progressbar" aria-valuenow="${p}" aria-valuemax="100"><i style="width:${p}%"></i></div>`;
+function render(){
+ $('#roles').innerHTML=[['pub','Avalik'],['admin','Administraator'],['ins','Juhendaja'],['stu','Õpilane'],['par','Lapsevanem']].map(([k,n])=>`<button aria-pressed="${S.role==k}" onclick="go('${k}')">${n}</button>`).join('');
+ $('#app').innerHTML=({pub,admin,ins,stu,par})[S.role]();window.scrollTo(0,0)}
+/* AVALIK */
+function pub(){return `<div class="hero"><div><h1>Ainult tüdrukud tehnoloogias</h1><p>HK Unicorn Squad pakub tehnoloogiaõpet 8–14-aastastele tüdrukutele. Praktiliste katsete, koostöö ja loovülesannete kaudu avastavad nad robootikat, tehnikat ja loodusteadusi.</p><p><a href="https://unicornsquad.ee" rel="noopener">Ametlik koduleht ja osalemisvõimalused →</a></p></div><img alt="Unicorn Squadi illustratsioon" src="${HERO}"></div>
+<h2>Valitud tööd</h2><div class="grid">${D.W.filter(w=>St(w.sid).c).slice(0,3).map(w=>`<div class="card">${ph(w)}<b>${esc(w.t)}</b><br><small>avaldatud nõusolekuga</small></div>`).join('')}</div>
+<p><small>Laste isiklikud projektimapid ja tagasiside on kaitstud vaates.</small></p>`}
+/* ADMIN */
+function admin(){const n=D.S.reduce((a,s)=>a+s.badges.length,0);return `<h2>Haldus</h2><div class="grid">${[[D.ins.length,'juhendajat'],[D.S.length,'õpilast'],[D.L.length,'tundi'],[n,'jagatud märki'],[D.L.filter(l=>!l.out.length).length,'tundi ilma õpiväljundita']].map(([a,b])=>`<div class="card"><h1>${a}</h1>${b}</div>`).join('')}</div>
+<div class="card"><h3>Loo juhendaja konto</h3><div class="row"><input id="an" placeholder="Nimi" aria-label="Nimi"><input id="ae" type="email" placeholder="E-post" aria-label="E-post"><input id="ap" placeholder="Ajutine parool" aria-label="Parool"><button class="btn" onclick="addIns()">Loo konto</button></div></div>
+<div class="card wrap"><table><tr><th>Juhendaja</th><th>E-post</th><th>Ligipääs</th></tr>${D.ins.map((i,k)=>`<tr><td>${esc(i.n)}</td><td>${esc(i.e)}</td><td><button class="btn sm ${i.on?'':'alt'}" onclick="D.ins[${k}].on=!D.ins[${k}].on;render()">${i.on?'Aktiivne – eemalda':'Peatatud – anna tagasi'}</button></td></tr>`).join('')}</table></div>
+<div class="card"><h3>Märkide kataloog</h3>${D.B.map(b=>`<span class="chip">${b.i} ${b.n}</span>`).join('')}</div>`}
+function addIns(){const n=v('an'),e=v('ae'),p=v('ap');if(!n||!e||!p)return toast('Täida kõik väljad');D.ins.push({n,e,on:true});toast('Konto loodud (demo: e-kirja ei saadeta)');render()}
+/* JUHENDAJA */
+function ins(){
+ let h=`<h2>Tere, Marika!</h2>`+tabs([['ov','Ülevaade'],['les','Tunnid'],['log','Logistika'],['grp','Grupp'],['nurk','Juhendajate nurk']]);
+ if(S.tab=='ov'){const nx=D.L.find(l=>!l.ready),late=D.BX.filter(b=>b.st=='hilinenud');
+  h+=`<div class="card"><h3>Järgmine tund: ${esc(nx.t)}</h3><p>${esc(nx.goal)}</p>${late.length?`<p class="chip bad">⚠ ${esc(late[0].n)} on hilinenud</p>`:''}<button class="btn" onclick="S.tab='les';S.lid=${nx.id};render()">Ava tunni ettevalmistus</button></div>
+  <div class="card"><h3>Teade grupile ja vanematele</h3><textarea id="nt" rows="2" placeholder="Kirjuta teade…"></textarea><button class="btn" onclick="sendN()">Saada</button>${D.N.map(n=>`<p>📣 ${esc(n)}</p>`).join('')}</div>`}
+ if(S.tab=='les')h+=S.lid?lesson(L(S.lid),'ins'):`<div class="grid">${D.L.map(l=>`<div class="card"><h3>${l.id}. ${esc(l.t)}</h3><span class="chip ${l.ready?'ok':''}">${l.ready?'✓ valmis':'ettevalmistamata'}</span><p>${esc(l.goal)}</p><button class="btn sm" onclick="S.lid=${l.id};render()">Ava</button></div>`).join('')}</div>`;
+ if(S.tab=='log')h+=`<div class="card wrap"><h3>Õppevahendite kastid</h3><table>${D.BX.map(b=>`<tr><td><b>${b.n}</b></td><td><span class="chip ${b.st=='kohal'?'ok':b.st=='hilinenud'?'bad':''}">${b.st}</span></td><td>${b.w}</td><td>${b.d}</td></tr>`).join('')}</table><div class="row"><input id="lm" placeholder="Kirjuta korraldajale (nt liimipulgad hakkavad otsa saama)"><button class="btn" onclick="v('lm')?(toast('Saadetud korraldajale'),$('#lm').value=''):0">Saada</button></div></div>
+  <div class="card"><h3>Laagri ülesanded</h3>${D.CP.map((c,k)=>`<label style="display:block"><input type="checkbox" style="width:auto" ${c.d?'checked':''} onchange="D.CP[${k}].d=this.checked"> ${c.t}</label>`).join('')}</div>`;
+ if(S.tab=='grp'){h+=`<div class="card wrap"><table><tr><th>Õpilane</th><th>Sisenemiskood</th><th>Edenemine</th><th></th></tr>${D.S.map(s=>`<tr><td><b>${s.n}</b><br>${cons(s)}</td><td><span class="code">${s.code}</span></td><td style="min-width:110px">${pct(s)}%${bar(pct(s))}</td><td><button class="btn sm alt" onclick="S.sel='${s.id}';render()">Tagasiside</button> <button class="btn sm" ${elig(s)?'':'disabled title="Vaja vähemalt 80% tundidest"'} onclick="S.cert='${s.id}';render()">Tunnistus</button></td></tr>`).join('')}</table></div>
+  <div class="card"><h3>Lisa õpilane</h3><div class="row"><input id="sn" placeholder="Õpilase nimi"><button class="btn" onclick="addS()">Loo kood</button></div></div>`;
+  if(S.sel){const s=St(S.sel),ws=D.W.filter(w=>w.sid==s.id);h+=`<div class="card"><h3>${s.n}: tagasiside ja märk</h3><p>Märgid: ${s.badges.map(b=>bd(b).i).join(' ')||'—'}</p>${ws.length?`<select id="fw">${ws.map(w=>`<option value="${w.id}">${esc(w.t)}</option>`).join('')}</select><textarea id="ft" rows="2" placeholder="Tagasiside tööle"></textarea>`:'<p>Töid veel pole.</p>'}<select id="fb"><option value="">Märki ei anna</option>${D.B.filter(b=>!s.badges.includes(b.id)).map(b=>`<option value="${b.id}">${b.i} ${b.n}</option>`).join('')}</select><button class="btn" onclick="fbk()">Salvesta</button></div>`}
+  if(S.cert)h+=cert(St(S.cert))}
+ if(S.tab=='nurk')h+=forum(null);
+ return h}
+function sendN(){const t=v('nt');if(!t)return;D.N.unshift(t);toast('Teade saadetud grupile ja vanematele (demo)');render()}
+function addS(){const n=v('sn');if(!n)return;const c='UNI-'+Math.random().toString(36).slice(2,6).toUpperCase();D.S.push({id:'s'+(D.S.length+1),n,code:c,c:false,done:[],badges:[],fav:[],tk:{}});toast('Kood '+c+' loodud');render()}
+function fbk(){const s=St(S.sel),b=v('fb'),t=v('ft'),w=D.W.find(w=>w.id==v('fw'));if(w&&t)w.fb=t;if(b)s.badges.push(b);toast('Salvestatud');render()}
+function lesson(l,m){const s=m=='stu'?St(S.sid):null,t=s?(s.tk[l.id]=s.tk[l.id]||[]):[],p=s?Math.round(t.length/l.st.length*100):0;
+ return `<button class="btn alt sm" onclick="S.lid=null;render()">← Tagasi</button><div class="card"><h2>${l.id}. ${esc(l.t)}</h2><p><b>Programm:</b> ${esc(l.tool)} · <a href="#">juhend ja link</a> · <a href="#">▶ videoõpetus</a></p><p>${esc(l.goal)}</p>
+ ${m=='ins'?`<p><b>Vahendid:</b> ${esc(l.kit)}</p><button class="btn" onclick="L(${l.id}).ready=!L(${l.id}).ready;render()">${l.ready?'✓ Märgitud valmis':'Märgi ettevalmistatuks'}</button>`:`${bar(p)}`}
+ <h3>Õpiväljundid</h3><ul>${l.out.map(o=>`<li>${esc(o)}</li>`).join('')}</ul></div>
+ <h3>${m=='stu'?'Sammud':'Õpilaste sammujuhis'}</h3>${l.st.map(([x,e],i)=>`<div class="step ${t.includes(i)?'d':''}" ${m=='stu'?`onclick="tg(${l.id},${i})" role="checkbox" aria-checked="${t.includes(i)}" tabindex="0"`:''}><div class="im">${e}</div><div><b>Samm ${i+1}</b><br>${esc(x)}</div></div>`).join('')}
+ ${m=='stu'?work(l):''}${forum(l.id)}`}
+function tg(l,i){const t=St(S.sid).tk[l],k=t.indexOf(i);k<0?t.push(i):t.splice(k,1);render()}
+function forum(lid){const ps=D.P.filter(p=>!lid||p.lid==lid);return `<div class="card"><h3>💬 Juhendajate arutelu</h3>${ps.map(p=>`<div class="card"><small>${esc(L(p.lid).t)} · ${p.by}</small><p>${esc(p.t)}</p>${p.re.map(r=>`<p style="margin-left:14px">↳ <b>${r.by}:</b> ${esc(r.t)}</p>`).join('')}<div class="row"><input id="r${p.id}" placeholder="Vasta…"><button class="btn sm" onclick="rep(${p.id})">Vasta</button></div></div>`).join('')||'<p>Esimene postitus puudub veel.</p>'}
+ <textarea id="np" rows="2" placeholder="Mis õnnestus, mis mitte, mida teeksid teisiti?"></textarea>${lid?'':`<select id="npl">${D.L.map(l=>`<option value="${l.id}">${esc(l.t)}</option>`).join('')}</select>`}<button class="btn" onclick="post(${lid||0})">Postita</button></div>`}
+function rep(id){const t=v('r'+id);if(!t)return;D.P.find(p=>p.id==id).re.push({by:'Marika',t});render()}
+function post(l){const t=v('np');if(!t)return;D.P.push({id:D.P.length+1,lid:l||+v('npl'),by:'Marika',t,re:[]});render()}
+/* ÕPILANE */
+function stu(){
+ if(!S.sid)return `<div class="card" style="max-width:420px;margin:30px auto;text-align:center"><h2>Tere tulemast!</h2><p>Sisesta kood, mille juhendaja sulle andis.</p><input id="cd" placeholder="UNI-XXXX" aria-label="Sisenemiskood" style="text-align:center;font:700 20px monospace"><button class="btn" onclick="login()">Sisene</button><p><small>Demo-koodid: ${D.S.map(s=>s.code).join(', ')}</small></p></div>`;
+ const s=St(S.sid);let h=`<h2>Tere, ${esc(s.n)}! 🦄</h2>`+tabs([['k','Minu kursus'],['t','Tööd'],['m','Märgid']]);
+ if(S.tab=='k'){if(S.lid)return h+lesson(L(S.lid),'stu');
+  h+=`<input id="q" placeholder="Otsi tundi (nt video, sinine ikoon)…" oninput="flt()" aria-label="Otsi"><label><input type="checkbox" id="fv" style="width:auto" onchange="flt()"> ★ ainult lemmikud</label><div class="grid" id="ls">${lcards(s,'','')}</div><p><button class="btn alt" onclick="go('par')">Näita vanemale →</button></p>`}
+ if(S.tab=='t')h+=`<div class="grid">${D.W.filter(w=>St(w.sid).c||w.sid==s.id).map(w=>wcard(w,s)).join('')}</div>`;
+ if(S.tab=='m')h+=`<div class="grid">${D.B.map(b=>`<div class="bd ${s.badges.includes(b.id)?'':'lock'}"><b>${b.i}</b>${b.n}<br><small>${s.badges.includes(b.id)?'saadud':'veel saamata'}</small></div>`).join('')}</div>`;
+ return h}
+function lcards(s,q,fv){return D.L.filter(l=>(l.t+l.tool).toLowerCase().includes(q)&&(!fv||s.fav.includes(l.id))).map(l=>`<div class="card"><h3>${s.fav.includes(l.id)?'★ ':''}${l.id}. ${esc(l.t)}</h3><span class="chip ${s.done.includes(l.id)?'ok':''}">${s.done.includes(l.id)?'läbitud':'tulemas'}</span><p>${esc(l.tool)}</p><button class="btn sm" onclick="S.lid=${l.id};render()">Ava</button> <button class="btn sm alt" onclick="fav(${l.id})" aria-label="Lemmik">${s.fav.includes(l.id)?'★':'☆'}</button></div>`).join('')||'<p>Midagi ei leitud.</p>'}
+function flt(){$('#ls').innerHTML=lcards(St(S.sid),v('q').toLowerCase(),$('#fv').checked)}
+function fav(i){const f=St(S.sid).fav,k=f.indexOf(i);k<0?f.push(i):f.splice(k,1);render()}
+function login(){const s=D.S.find(s=>s.code==v('cd').toUpperCase());if(!s)return toast('Koodi ei leitud');S.sid=s.id;render()}
+function work(l){return `<div class="card"><h3>📸 Lisa oma töö</h3><input id="wt" placeholder="Töö nimi"><input type="file" accept="image/*" id="wf" onchange="pic(this)" aria-label="Pilt"><div id="pv"></div><textarea id="w1" rows="1" placeholder="Mida ma tegin?"></textarea><textarea id="w2" rows="1" placeholder="Mis õnnestus?"></textarea><textarea id="w3" rows="1" placeholder="Milles vajasin abi?"></textarea><button class="btn" onclick="saveW(${l.id})">Salvesta töö</button></div>`}
+function pic(f){const r=new FileReader();r.onload=e=>{const i=new Image();i.onload=()=>{const k=Math.min(1,1000/i.width),c=document.createElement('canvas');c.width=i.width*k;c.height=i.height*k;c.getContext('2d').drawImage(i,0,0,c.width,c.height);S.draft=c.toDataURL('image/jpeg',.8);$('#pv').innerHTML=`<img alt="Eelvaade" src="${S.draft}" style="max-width:100%;border-radius:10px">`};i.src=e.target.result};if(f.files[0])r.readAsDataURL(f.files[0])}
+function saveW(l){const t=v('wt');if(!t)return toast('Pane tööle nimi');D.W.push({id:D.W.length+1,sid:S.sid,lid:l,t,i:'⭐',img:S.draft,r:[v('w1'),v('w2'),v('w3')],fb:'',cm:[],h:0});S.draft='';toast('Töö lisatud!');S.tab='t';S.lid=null;render()}
+function wcard(w,s,ro){const a=St(w.sid);return `<div class="card">${ph(w)}<b>${esc(w.t)}</b> <small>${a.n} · ${esc(L(w.lid).t)}</small>${w.r[0]?`<p><small>Tegin: ${esc(w.r[0])}<br>Õnnestus: ${esc(w.r[1])}<br>Abi: ${esc(w.r[2])}</small></p>`:''}${w.fb?`<p class="chip ok">Juhendaja: ${esc(w.fb)}</p>`:''}${w.cm.map(c=>`<p><small><b>${c.by}:</b> ${esc(c.t)}</small></p>`).join('')}
+ ${ro?`<span>♥ ${w.h}</span>`:`<button class="btn sm alt" onclick="hrt(${w.id})">♥ ${w.h}</button><select id="cs${w.id}"><option>Mulle meeldis…</option><option>Tahaksin teada…</option><option>Hea mõte, sest…</option></select><div class="row"><input id="ct${w.id}" placeholder="Kommentaar"><button class="btn sm" onclick="cmt(${w.id})">Saada</button></div>`}</div>`}
+function hrt(i){D.W.find(w=>w.id==i).h++;render()}
+function cmt(i){const t=v('ct'+i);if(!t)return;D.W.find(w=>w.id==i).cm.push({by:St(S.sid).n,t:v('cs'+i)+' '+t});render()}
+/* VANEM */
+function par(){const s=St(S.sid||'s1');return `<div class="card"><h2>${s.n} projektimapp</h2><p>Edenemine: ${pct(s)}% ${bar(pct(s))}</p><p>Märgid: ${s.badges.map(b=>bd(b).i+' '+bd(b).n).join(' · ')||'—'}</p></div>
+<div class="card"><h3>📣 Juhendaja teated</h3>${D.N.map(n=>`<p>${esc(n)}</p>`).join('')}</div>
+<h3>Lapse tööd</h3><div class="grid">${D.W.filter(w=>w.sid==s.id).map(w=>wcard(w,s,1)).join('')||'<p>Töid veel pole.</p>'}</div>
+<h3>Teiste laste tööd (nõusolekuga)</h3><div class="grid">${D.W.filter(w=>w.sid!=s.id&&St(w.sid).c).map(w=>wcard(w,s,1)).join('')}</div>`}
+/* TUNNISTUS */
+function cert(s){const sk=[...new Set(D.L.filter(l=>s.done.includes(l.id)).flatMap(l=>l.out))];
+ return `<div class="card"><div id="cert"><svg width="48" height="48" style="background:#5B4A78;border-radius:50%"><use href="#lm"/></svg><p><b>HK Unicorn Squad</b></p><h1>TUNNISTUS</h1><p>Tunnistame, et</p><h2>${esc(s.n)}</h2><p>on läbinud tehnoloogiaringi kursuse ja omandanud järgmised oskused:</p><ul style="text-align:left;display:inline-block">${sk.map(x=>`<li>${esc(x)}</li>`).join('')}</ul><p>${s.badges.map(b=>bd(b).i).join(' ')}</p><p>Juhendaja: Marika · ${new Date().toLocaleDateString('et-EE')}</p><p>______________________<br><small>allkiri</small></p></div><button class="btn" onclick="window.print()">Prindi / salvesta PDF-ina</button></div>`}
+render();
+</script></body></html>
